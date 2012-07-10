@@ -1,0 +1,1 @@
+web: trinidad -r config.ru -p $PORT -e $RACK_ENV
