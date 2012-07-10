@@ -1,1 +1,1 @@
-web: bin/trinidad -r config.ru -p $PORT -e $RACK_ENV
+web: rackup -r config.ru -p $PORT -e $RACK_ENV
