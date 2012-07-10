@@ -43,7 +43,9 @@ Named Entity Recognition is done with POST to '/ner'. Result is JSON with "text"
 Named Entity Recognition is based oponce learining and analysis, quality of results is based oponce gethered knowladge.
 
 	curl http://politiki-si-ner.herokuapp.com/ner \
-	-d "text=Predsedstvo SD je Boruta Pahorja potrdilo za kandidata stranke za predsednika države z le enim glasom proti. Ob tem je Pahor dejal, da si je od začetka najave svoje kandidature za predsednika republike prizadeval pojasniti, kako pomembno je, da \"smo zlasti v tem času Slovenci, kolikor je le mogoče, povezani\"."
+	-d "text=Predsedstvo SD je Boruta Pahorja potrdilo za kandidata stranke za predsednika države z le enim glasom proti. 
+    Ob tem je Pahor dejal, da si je od začetka najave svoje kandidature za predsednika republike prizadeval pojasniti,
+    kako pomembno je, da \"smo zlasti v tem času Slovenci, kolikor je le mogoče, povezani\"."
     
     {"text":
     	["Predsedstvo <a href=\"#party\">SD</a> je Boruta Pahorja potrdilo za kandidata stranke za predsednika države z le enim glasom proti .",
