@@ -44,10 +44,11 @@ Working on this baby :P
 
 ## Some links
 
+* [Politiki.si](http://politiki.si)
 * [Apache OpenNLP](http://opennlp.apache.org/)
 * [jRuby](http://jruby.org/)
 * [Heroku jRuby Build Pack](https://github.com/carlhoerberg/heroku-buildpack-jruby)
 
-## Contact me && || give me job. ;)
+## Contact me and/or give me job. ;)
 
 Oto Brglez / [@otobrglez](http://opalab.com)

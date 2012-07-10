@@ -13,7 +13,6 @@ include_class "opennlp.tools.sentdetect.SentenceDetectorME"
 include_class "opennlp.tools.tokenize.TokenizerModel"
 include_class "opennlp.tools.tokenize.TokenizerME"
 
-# API
 class API < Grape::API
 
 	rescue_from :all
