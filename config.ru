@@ -2,6 +2,6 @@
 
 require 'rubygems'
 require 'bundler/setup'
-require 'api.rb'
+require './api.rb'
 
 run API
