@@ -10,6 +10,28 @@ Project uses jRuby to wrap OpenNLP framework to do magic stuff with it. Since th
 
 API system uses REST structure.
 
+### POST /ner
+
+Named Entity Recognition is done with POST to '/ner'. Result is JSON with "text" and "entities".
+
+* "text" contains list of sentences.
+* "entities" contains lists of parties, persons, locations, ...
+
+Named Entity Recognition is based oponce learining and analysis, quality of results is based oponce gethered knowladge.
+
+    curl http://politiki-si-ner.herokuapp.com/ner \
+    -d "text=Predsedstvo SD je Boruta Pahorja potrdilo za kandidata stranke za predsednika države z le enim glasom proti. 
+    Ob tem je Pahor dejal, da si je od začetka najave svoje kandidature za predsednika republike prizadeval pojasniti,
+    kako pomembno je, da \"smo zlasti v tem času Slovenci, kolikor je le mogoče, povezani\"."
+    
+    {"text":
+        ["Predsedstvo <a href=\"#party\">SD</a> je Boruta Pahorja potrdilo za kandidata stranke za predsednika države z le enim glasom proti .",
+        "Ob tem je Pahor dejal , da si je od začetka najave svoje kandidature za predsednika republike prizadeval pojasniti , kako pomembno je , da \"smo zlasti v tem času Slovenci , kolikor je le mogoče , povezani\" ."],
+     "entities":{
+        "party":["SD"]
+      }
+    } 
+
 ### POST /sentence_detector
 
 For sentence detection and spliting use '/sentence_detector' method.
@@ -33,27 +55,6 @@ For text tokenization use '/tokenize' method like so.
 
 	{"tokens":["Zanima","me","če","tokenizacija","zares","deluje","?"]}
 
-### POST /ner
-
-Named Entity Recognition is done with POST to '/ner'. Result is JSON with "text" and "entities".
-
-* "text" contains list of sentences.
-* "entities" contains lists of parties, persons, locations, ...
-
-Named Entity Recognition is based oponce learining and analysis, quality of results is based oponce gethered knowladge.
-
-	curl http://politiki-si-ner.herokuapp.com/ner \
-	-d "text=Predsedstvo SD je Boruta Pahorja potrdilo za kandidata stranke za predsednika države z le enim glasom proti. 
-    Ob tem je Pahor dejal, da si je od začetka najave svoje kandidature za predsednika republike prizadeval pojasniti,
-    kako pomembno je, da \"smo zlasti v tem času Slovenci, kolikor je le mogoče, povezani\"."
-    
-    {"text":
-    	["Predsedstvo <a href=\"#party\">SD</a> je Boruta Pahorja potrdilo za kandidata stranke za predsednika države z le enim glasom proti .",
-        "Ob tem je Pahor dejal , da si je od začetka najave svoje kandidature za predsednika republike prizadeval pojasniti , kako pomembno je , da \"smo zlasti v tem času Slovenci , kolikor je le mogoče , povezani\" ."],
-     "entities":{
-     	"party":["SD"]
-      }
-    } 
 
 ## Some links
 
