@@ -26,7 +26,7 @@ For sentence detection and spliting use '/sentence_detector' method.
 
 ### POST /tokenize
 
-To do text tokenization use '/tokenize' method like so.
+For text tokenization use '/tokenize' method like so.
     
 	curl http://politiki-si-ner.herokuapp.com/tokenize \
     -d "text=Zanima me če tokenizacija zares deluje?" 
@@ -35,12 +35,23 @@ To do text tokenization use '/tokenize' method like so.
 
 ### POST /ner
 
-Working on this baby :P
+Named Entity Recognition is done with POST to '/ner'. Result is JSON with "text" and "entities".
+
+* "text" contains list of sentences.
+* "entities" contains lists of parties, persons, locations, ...
+
+Named Entity Recognition is based oponce learining and analysis, quality of results is based oponce gethered knowladge.
 
 	curl http://politiki-si-ner.herokuapp.com/ner \
-    -d "text=... article goes here ..."
+	-d "text=Predsedstvo SD je Boruta Pahorja potrdilo za kandidata stranke za predsednika države z le enim glasom proti. Ob tem je Pahor dejal, da si je od začetka najave svoje kandidature za predsednika republike prizadeval pojasniti, kako pomembno je, da \"smo zlasti v tem času Slovenci, kolikor je le mogoče, povezani\"."
     
-    {"parties".... "politicians".... 
+    {"text":
+    	["Predsedstvo <a href=\"#party\">SD</a> je Boruta Pahorja potrdilo za kandidata stranke za predsednika države z le enim glasom proti .",
+        "Ob tem je Pahor dejal , da si je od začetka najave svoje kandidature za predsednika republike prizadeval pojasniti , kako pomembno je , da \"smo zlasti v tem času Slovenci , kolikor je le mogoče , povezani\" ."],
+     "entities":{
+     	"party":["SD"]
+      }
+    } 
 
 ## Some links
 
