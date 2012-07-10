@@ -21,7 +21,7 @@ class API < Grape::API
 	format :json
   	default_format :json
 
-	get "sentence_detector" do
+	post "sentence_detector" do
 		throw "Missing \"text\" parameter to do sentence detection on." if params[:text].nil? or params[:text].empty?
 		model = SentenceModel.new(java.io.FileInputStream.new("models/si-sent.bin"))
 	
@@ -31,7 +31,7 @@ class API < Grape::API
 		{ :sentences => sentences_o }
 	end
 
-	get "tokenize" do
+	post "tokenize" do
 		throw "Missing \"text\" parameter to do tokenization on." if params[:text].nil? or params[:text].empty?
 		model = TokenizerModel.new(java.io.FileInputStream.new("models/si-token.bin"));
 		
