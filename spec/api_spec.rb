@@ -5,7 +5,7 @@ describe API do
 	def app() API; end
 
 	describe "calls" do
-		describe "GET /sentence_detector" do
+		describe "POST /sentence_detector" do
 			it "should break on missing text" do
 				post "/sentence_detector"
 				last_response.status.should_not == 200
@@ -20,7 +20,7 @@ describe API do
 			end
 		end
 
-		describe "GET /tokenize" do
+		describe "POST /tokenize" do
 			it "should break if no text is sent!" do
 				post "/tokenize"
 				last_response.status.should_not == 200
@@ -33,6 +33,33 @@ describe API do
 				tokens = Oj.load(last_response.body)["tokens"]
 				tokens.size.should_not == 0
 				tokens.should include "deluje"
+			end
+		end
+
+		describe "POST /ner" do
+			it "should break if no text is present" do
+				post "/ner"
+				last_response.status.should_not == 200
+				Oj.load(last_response.body)["error"].should =~ /missing/i
+			end
+
+			it "should extract parties" do
+				post '/ner', {
+					:text => "Borut Pahor, predsednik SD je v pogovoru za Radio Ognjišče napovedal,
+					da bo svojo odločitev o kandidaturi za predsednika republike sporočil junija.
+					Predsednik stranke SDS, Janez Janša je bil danes v Mariboru.
+					Kadar zaseda stranka SD in Borut Pahor, potem Janez Janša ni vesel."
+				}
+
+				last_response.status.should == 201
+				out = Oj.load(last_response.body)
+
+				out["text"].first.should =~ /\#person/
+				out["text"].first.should =~ /\#party/
+				
+				out["entities"]["person"].should include "Borut Pahor"
+				out["entities"]["person"].should include "Janez Janša"
+
 			end
 		end
 	end
