@@ -58,22 +58,35 @@ class API < Grape::API
 		throw "Missing \"text\" parameter to do ner on." if params[:text].nil? or params[:text].empty?
 		
 		sentences_list_out = []
+		tokenized_text = []
+		entities_locations = []
 		entities = {}
-
+		m_i = -1
 		sentences_list = sentences(params[:text])
 		sentences_list.each_with_index do |s,s_i|
 			tokens_list = tokens(s)
+			tokenized_text << tokens_list.dup
 			
 			pom = name_finder.find(tokens_list.to_java(:string))
 			pom.each do |i|
 				start_i, end_i, length, type = i.getStart, i.getEnd, i.length, i.getType
 
 				entities[type.to_sym] = [] if entities[type.to_sym].nil?
-				entities[type.to_sym] << tokens_list[start_i .. (end_i-1)].join(" ")
+				entities[type.to_sym] << value = tokens_list[start_i .. (end_i-1)].join(" ")
 				entities[type.to_sym].uniq!
 
 				tokens_list[start_i] = "<a href=\"##{type}\">#{tokens_list[start_i]}"
 				tokens_list[end_i-1] = "#{tokens_list[end_i-1]}</a>"	
+
+				entities_locations << {
+					:s => s_i, # Sentence
+					:i_s => start_i, # Start index
+					:i_e => end_i, # End index
+					:l => length, # Length
+					:t => type, # type
+					:v => value,
+					:m_i => (m_i = m_i+1)
+				}
 			end
 			
 			# TODO: Detokenize
@@ -84,7 +97,9 @@ class API < Grape::API
 
 		{
 			:text => sentences_list_out,
-			:entities => entities
+			:tokenized_text => tokenized_text,
+			:entities => entities,
+			:entities_locations => entities_locations
 		}
 	end
 end
