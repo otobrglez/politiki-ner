@@ -60,7 +60,7 @@ describe API do
 				out["entities"]["person"].should include "Borut Pahor"
 				out["entities"]["person"].should include "Janez Janša"
 
-				pp out
+				# pp out
 			end
 		end
 	end
