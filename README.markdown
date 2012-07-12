@@ -19,19 +19,98 @@ Named Entity Recognition is done with POST to '/ner'. Result is JSON with "text"
 
 Named Entity Recognition is based oponce learining and analysis, quality of results is based oponce gethered knowladge.
 
-    curl http://politiki-si-ner.herokuapp.com/ner \
-    -d "text=Predsedstvo SD je Boruta Pahorja potrdilo za kandidata stranke za predsednika države z le enim glasom proti. 
+    curl -s http://politiki-si-ner.herokuapp.com/ner \ 
+    -d "text=Predsedstvo SD je Boruta Pahorja potrdilo za kandidata stranke za predsednika države z le enim glasom proti.
     Ob tem je Pahor dejal, da si je od začetka najave svoje kandidature za predsednika republike prizadeval pojasniti,
-    kako pomembno je, da \"smo zlasti v tem času Slovenci, kolikor je le mogoče, povezani\"."
-    
-    {"text":
-        ["Predsedstvo <a href=\"#party\">SD</a> je Boruta Pahorja potrdilo za kandidata stranke za predsednika države z le enim glasom proti .",
-        "Ob tem je Pahor dejal , da si je od začetka najave svoje kandidature za predsednika republike prizadeval pojasniti , kako pomembno je , da \"smo zlasti v tem času Slovenci , kolikor je le mogoče , povezani\" ."],
-     "entities":{
-        "party":["SD"]
-      }
-    } 
+    kako pomembno je, da \"smo zlasti v tem času Slovenci, kolikor je le mogoče, povezani\"." | python -mjson.tool
 
+    {
+        "entities": {
+            "party": [
+                "SD"
+            ]
+        }, 
+        "entities_locations": [
+            {
+                "i_e": 2, 
+                "i_s": 1, 
+                "l": 1, 
+                "m_i": 0, 
+                "s": 0, 
+                "t": "party", 
+                "v": "SD"
+            }
+        ], 
+        "text": [
+            "Predsedstvo <a href=\"#party\">SD</a> je Boruta Pahorja potrdilo za kandidata stranke za predsednika dr?ave z le enim glasom proti .", 
+            "Ob tem je Pahor dejal , da si je od za ?etka najave svoje kandidature za predsednika republike prizadeval pojasniti , kako pomembno je , da \"smo zlasti v tem ?asu Slovenci , kolikor je le mogo ?e , povezani\" ."
+        ], 
+        "tokenized_text": [
+            [
+                "Predsedstvo", 
+                "SD", 
+                "je", 
+                "Boruta", 
+                "Pahorja", 
+                "potrdilo", 
+                "za", 
+                "kandidata", 
+                "stranke", 
+                "za", 
+                "predsednika", 
+                "dr?ave", 
+                "z", 
+                "le", 
+                "enim", 
+                "glasom", 
+                "proti", 
+                "."
+            ], 
+            [
+                "Ob", 
+                "tem", 
+                "je", 
+                "Pahor", 
+                "dejal", 
+                ",", 
+                "da", 
+                "si", 
+                "je", 
+                "od", 
+                "za", 
+                "?etka", 
+                "najave", 
+                "svoje", 
+                "kandidature", 
+                "za", 
+                "predsednika", 
+                "republike", 
+                "prizadeval", 
+                "pojasniti", 
+                ",", 
+                "kako", 
+                "pomembno", 
+                "je", 
+                ",", 
+                "da", 
+                "\"smo", 
+                "zlasti", 
+                "v", 
+                "tem", 
+                "?asu", 
+                "Slovenci", 
+                ",", 
+                "kolikor", 
+                "je", 
+                "le", 
+                "mogo", 
+                "?e", 
+                ",", 
+                "povezani\"", 
+                "."
+            ]
+        ]
+    }
 ### POST /sentence_detector
 
 For sentence detection and spliting use '/sentence_detector' method.
