@@ -141,6 +141,7 @@ For text tokenization use '/tokenize' method like so.
 * [Apache OpenNLP](http://opennlp.apache.org/)
 * [jRuby](http://jruby.org/)
 * [Heroku jRuby Build Pack](https://github.com/carlhoerberg/heroku-buildpack-jruby)
+* [Stanford University - Natural Language Processing](https://www.coursera.org/course/nlp)
 
 ## Contact me and/or give me job. ;)
 

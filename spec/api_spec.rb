@@ -4,6 +4,14 @@ describe API do
 	include Rack::Test::Methods
 	def app() API; end
 
+	before :all do
+		Model.all.destroy
+		
+		ModelStorage.save_model_from_file "si-sent.bin", "models/si-sent.bin"
+		ModelStorage.save_model_from_file "si-token.bin", "models/si-token.bin"
+		ModelStorage.save_model_from_file "si-ner.bin", "models/si-ner.bin"
+	end
+
 	describe "calls" do
 		describe "POST /sentence_detector" do
 			it "should break on missing text" do

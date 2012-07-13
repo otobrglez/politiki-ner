@@ -15,9 +15,7 @@ include_class "opennlp.tools.tokenize.TokenizerME"
 include_class "opennlp.tools.namefind.NameFinderME"
 include_class "opennlp.tools.namefind.TokenNameFinderModel"
 
-@@sentence_model = SentenceModel.new(java.io.FileInputStream.new("models/si-sent.bin"))
-@@tokenizer_model = TokenizerModel.new(java.io.FileInputStream.new("models/si-token.bin"))
-@@tnf_model = TokenNameFinderModel.new(java.io.FileInputStream.new("models/si-ner.bin"))
+require 'model_storage'
 
 class API < Grape::API
 
@@ -28,11 +26,13 @@ class API < Grape::API
 
   	helpers do
 	  	def sentences text
-			(SentenceDetectorME.new(@@sentence_model).sentDetect(text)).collect { |s| s.to_s }
+			sentence_model = SentenceModel.new ModelStorage.load_model "si-sent.bin"
+			(SentenceDetectorME.new(sentence_model).sentDetect(text)).collect { |s| s.to_s }
 	  	end
 
 	  	def tokenizer
-	  		(TokenizerME.new(@@tokenizer_model))
+			tokenizer_model = TokenizerModel.new ModelStorage.load_model "si-token.bin"
+	  		TokenizerME.new tokenizer_model
 	  	end
 
 	  	def tokens text
@@ -40,7 +40,8 @@ class API < Grape::API
 	  	end
 
 	  	def name_finder
-	  		NameFinderME.new(@@tnf_model)
+			tnf_model = TokenNameFinderModel.new ModelStorage.load_model "si-ner.bin"
+	  		NameFinderME.new(tnf_model)
 	  	end
   	end
 
@@ -63,6 +64,8 @@ class API < Grape::API
 		entities = {}
 		m_i = -1
 		sentences_list = sentences(params[:text])
+
+
 		sentences_list.each_with_index do |s,s_i|
 			tokens_list = tokens(s)
 			tokenized_text << tokens_list.dup
