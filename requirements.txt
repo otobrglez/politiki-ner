@@ -1,2 +1,6 @@
 ipython[notebook]
-twitter
+numpy
+nltk
+beautifulsoup4
+scrapy
+service_identity

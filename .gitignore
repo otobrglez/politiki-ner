@@ -15,6 +15,7 @@
 .idea
 .installed.cfg
 .tox/
+.ipynb_checkpoints
 __pycache__/
 apache-opennlp*
 build/

@@ -1,0 +1,8 @@
+continue
+dir=data/news-html
+max-connection-per-server=10
+max-concurrent-downloads=20
+max-tries=5
+retry-wait=0
+log-level=error
+http-accept-gzip=true
